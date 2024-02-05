@@ -1,13 +1,17 @@
 package labb3;
 
 import java.util.Observable;
+import java.util.Observer;
 
 import labb3.modell.Nivå;
 import labb3.vy.Målarduk;
 
+import javax.swing.*;
+
+
 // TODO: Klassen ska ärva klassen JFrame i standardbibliotekets paket 
 // javax.swing och implementera gränssnittet Observer i paketet java.util. 
-public class GUI {
+public class GUI extends JFrame implements Observer {
 
 	private Målarduk målarduk;
 
@@ -19,6 +23,7 @@ public class GUI {
 
 		// TODO: Gör så att enNivå observerar this (instansen av GUI som denna
 		// kod håller på att skapa.
+
 
 		// TODO: Tilldela tillståndsvariabeln målarduk en instans av klassen
 		// Målarduk.
