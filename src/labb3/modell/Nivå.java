@@ -16,11 +16,11 @@ public class Nivå extends Observable {
 		aktivt = startrum;
 		allaRum = rum;
 
-		for(Rum rum: allaRum){
-			if( rum )
-		}
 		// TODO: Kontrollera att startrum finns med i rum. Om inte, kasta
 		// undantag med lämpligt felmeddelande.
+		if(!allaRum.contains(startrum)){
+			throw ArrayIndexOutOfBoundsException;
+		}
 
 		// TODO: Kontrollera att inga rum överlappar varandra. Om det ändå är
 		// fallet, kasta undantag med lämpligt felmeddelande.

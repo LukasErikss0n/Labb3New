@@ -12,9 +12,10 @@ public class GUI {
 	private Målarduk målarduk;
 
 	public GUI(Nivå enNivå) {
+		//TODO: Anropa metoden setDefaultCloseOperation med konstanten
+		//JFrame.EXIT_ON_CLOSE.
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// TODO: Anropa metoden setDefaultCloseOperation med konstanten
-		// JFrame.EXIT_ON_CLOSE.
 
 		// TODO: Gör så att enNivå observerar this (instansen av GUI som denna
 		// kod håller på att skapa.
