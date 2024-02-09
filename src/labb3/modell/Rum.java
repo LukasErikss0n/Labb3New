@@ -7,10 +7,10 @@ import java.awt.Color;
 public class Rum {
 
 	// TODO: Lägg till tillståndsvariabler.
-	private Color golvfärg;
-	private int bredd;
-	private int höjd;
-	Punkt övPunkt;
+	public Color golvfärg;
+	public int bredd;
+	public int höjd;
+	public Punkt övPunkt;
 
 
 

@@ -1,4 +1,4 @@
-﻿package labb3.modell;
+package labb3.modell;
 
 import labb3.kontroll.Tangentbordslyssnare;
 
@@ -10,10 +10,10 @@ public class Nivå extends Observable {
 
 	// TODO: Lägg till tillståndsvariabler för att hålla reda på nivåns rum och
 	// i vilket rum som användaren "är".
-	private Rum aktivt;
-	private ArrayList<Rum> allaRum;
+	public Rum aktivt;
+	public ArrayList<Rum> allaRum;
 
-	)public Nivå(Rum startrum, ArrayList<Rum> rum) {
+	public Nivå(Rum startrum, ArrayList<Rum> rum) {
 		// TODO: Kopiera in startrum och rum in i tillståndsvariablerna.
 		aktivt = startrum;
 		allaRum = rum;
@@ -21,7 +21,7 @@ public class Nivå extends Observable {
 		// TODO: Kontrollera att startrum finns med i rum. Om inte, kasta
 		// undantag med lämpligt felmeddelande.
 		if(!allaRum.contains(startrum)){
-			throw ArrayIndexOutOfBoundsException;
+			throw new ArrayIndexOutOfBoundsException("Error ");
 		}
 
 		// TODO: Kontrollera att inga rum överlappar varandra. Om det ändå är
@@ -30,13 +30,13 @@ public class Nivå extends Observable {
 
 	// TODO: Skriv en instansmetod som returnerar alla rummen. Denna behöver
 	// Målarduk för att veta vilka rum som finns på nivån och som ska ritas ut.
-	private ArrayList<Rum> getAllaRum(){
+	public ArrayList<Rum> getAllaRum(){
 		return allaRum;
 	}
 
 	// TODO Skriv en instansmetod som returnerar en referens till det rum som
 	// användaren "är i".
-	private Rum getAktivt(){
+	public Rum getAktivt(){
 		return aktivt;
 	}
 
