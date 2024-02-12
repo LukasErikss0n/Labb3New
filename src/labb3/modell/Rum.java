@@ -1,8 +1,10 @@
 package labb3.modell;
 
+import labb3.GlobalaKonstanter;
 import labb3.verktyg.Punkt;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 public class Rum {
 
@@ -11,6 +13,8 @@ public class Rum {
 	public int bredd;
 	public int höjd;
 	public Punkt övPunkt;
+	//public ArrayList<Gång[]> vädersträckArray = new ArrayList<>(4);
+	public Gång[] gångar = new Gång[GlobalaKonstanter.ANTAL_VÄDERSTRECK];
 
 
 
@@ -42,22 +46,31 @@ public class Rum {
 	}
 	// TODO: Skriv instansmetoden
 	//
-	// finnsUtgångÅt(Väderstreck väderstreck)
-	//
 	// som ska kontrollera om det från ett rum finns en utgång åt visst
 	// väderstreck.
+	//
+	public Boolean finnsUtgångÅt(Väderstreck väderstreck){
+		return gångar[väderstreck.index()] != null;
+	}
+
 
 	// TODO: Skriv instansmetoden
 	//
-	// Gång gångenÅt(Väderstreck väderstreck) som
+	//Gång gångenÅt(Väderstreck väderstreck) som
 	//
 	// returnerar den gång som leder från ett rum i riktning väderstreck. Om
 	// sådan gång saknas ska ett undantag kastas med lämpligt felmeddelande.
 
 	// TODO: Skrivklar metoden nedan som kopplar ihop två rum med en gång.
 
-	public static void kopplaIhop(Rum från, Väderstreck riktningUtUrFrån,
-			Rum till, Väderstreck riktningInITill) {
+	public static void kopplaIhop(Rum från, Väderstreck riktningUtUrFrån, Rum till, Väderstreck riktningInITill) {
+
+		Gång skapaGångFrån = new Gång(från, riktningUtUrFrån, till, riktningInITill);
+		från.gångar[riktningUtUrFrån.index()] = skapaGångFrån;
+
+		Gång skapaGångTill = new Gång(till, riktningInITill, från, riktningUtUrFrån);
+		till.gångar[riktningInITill.index()] = skapaGångTill;
+
 	}
 
 }

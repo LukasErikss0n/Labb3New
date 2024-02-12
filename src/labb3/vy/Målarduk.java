@@ -29,9 +29,12 @@ public class Målarduk extends JPanel {
 	}
 
 	// TODO: Lätt till @Override på metoden nedan.
+
+	@Override
 	protected void paintComponent(Graphics g) {
 		// TODO Lägg till ett anrop till paintComponent i omedelbara
 		// överklassen (JPanel). Skicka med g som argument.
+		super.paintComponent(g);
 
 		// TODO: Lägg till kod som ritar ut en grafisk vy av enNivå.
 		//
@@ -39,14 +42,36 @@ public class Målarduk extends JPanel {
 		// noga bilderna i labbinstruktionen för att få fram formlerna för
 		// bas- och pivotpunkternas koordinater. Använd ritmetoderna i klassen
 		// labb3.verktyg.Grafik. Anropa hjälpmetoderna från paintComponent.
+
+		//for loop för varje rum gör anrop till RitaRum
+		for (int i = 0; i < enNivå.getAllaRum().size(); i++) {
+			ritaRum(g, enNivå.getAllaRum().get(i));
+			ritaGångarFrånRum(g, enNivå.getAllaRum().get(i));
+
+		}
+
 	}
 
 	private void ritaRum(Graphics g, Rum ettRum) {
+		// anropa getters från rumklassen
+		int x = ettRum.getÖvPunkt().x();
+		int y = ettRum.getÖvPunkt().y();
+		int width = ettRum.getBredd();
+		int hight = ettRum.getHöjd();
+		int Vägg = GlobalaKonstanter.VÄGGTJOCKLEK;
 
+		g.setColor(ettRum.getColor());
+		g.fillRect(x, y , width , hight);
+
+		g.setColor(GlobalaKonstanter.VÄGGFÄRG);
+		g.fillRect(x,y,Vägg,hight); //Väster
+		g.fillRect(x,y,width,Vägg); //Norr
+		g.fillRect(x,y + hight,width,Vägg); //Söder
+		g.fillRect(x+width-Vägg,y,Vägg,hight); //Öster
 	}
 
 	private void ritaGångarFrånRum(Graphics g, Rum ettRum) {
-
+		//ss
 	}
 
 	private Punkt baspunkt(Rum ettRum, Väderstreck enRiktning) {
