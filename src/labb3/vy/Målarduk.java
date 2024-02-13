@@ -7,6 +7,7 @@ import labb3.modell.Gång;
 import labb3.modell.Nivå;
 import labb3.modell.Rum;
 import labb3.modell.Väderstreck;
+import labb3.verktyg.Grafik;
 import labb3.verktyg.Punkt;
 
 import javax.swing.*;
@@ -47,7 +48,7 @@ public class Målarduk extends JPanel {
 		for (int i = 0; i < enNivå.getAllaRum().size(); i++) {
 			ritaRum(g, enNivå.getAllaRum().get(i));
 			ritaGångarFrånRum(g, enNivå.getAllaRum().get(i));
-
+			//ritaGång(g,enNivå.getAllaRum().get(i).gångar[i]);
 		}
 
 	}
@@ -56,34 +57,79 @@ public class Målarduk extends JPanel {
 		// anropa getters från rumklassen
 		int x = ettRum.getÖvPunkt().x();
 		int y = ettRum.getÖvPunkt().y();
-		int width = ettRum.getBredd();
-		int hight = ettRum.getHöjd();
-		int Vägg = GlobalaKonstanter.VÄGGTJOCKLEK;
+		int bredd = ettRum.getBredd();
+		int höjd = ettRum.getHöjd();
+		int vägg = GlobalaKonstanter.VÄGGTJOCKLEK;
 
 		g.setColor(ettRum.getColor());
-		g.fillRect(x, y , width , hight);
+		g.fillRect(x, y , bredd , höjd);
 
 		g.setColor(GlobalaKonstanter.VÄGGFÄRG);
-		g.fillRect(x,y,Vägg,hight); //Väster
-		g.fillRect(x,y,width,Vägg); //Norr
-		g.fillRect(x,y + hight,width,Vägg); //Söder
-		g.fillRect(x+width-Vägg,y,Vägg,hight); //Öster
+		g.fillRect(x,y,vägg,höjd); //Väster
+		g.fillRect(x,y,bredd,vägg); //Norr
+		g.fillRect(x,y + höjd - vägg,bredd,vägg); //Söder
+		g.fillRect(x+bredd-vägg,y,vägg,höjd); //Öster
 	}
 
 	private void ritaGångarFrånRum(Graphics g, Rum ettRum) {
-		//ss
+		for (Väderstreck utgång: Väderstreck.values()){
+			if (ettRum.finnsUtgångÅt(utgång)){
+				Punkt baspunkt = baspunkt(ettRum, utgång);
+				Punkt pivotpunkt = pivotpunkt(ettRum, utgång);
+				Grafik.drawThickLine(g,baspunkt,pivotpunkt,GlobalaKonstanter.VÄGGTJOCKLEK,
+						GlobalaKonstanter.GÅNGFÄRG);
+				Grafik.fillCircle(g, pivotpunkt, GlobalaKonstanter.HALV_VÄGGTJOCKLEK,
+						GlobalaKonstanter.GÅNGFÄRG);
+			}
+		}
 	}
 
 	private Punkt baspunkt(Rum ettRum, Väderstreck enRiktning) {
-		return null; /* endast här för att Eclipse inte ska klaga */
+		int x = ettRum.getÖvPunkt().x();
+		int y = ettRum.getÖvPunkt().y();
+		int bredd = ettRum.getBredd();
+		int höjd = ettRum.getHöjd();
+		int vägg = GlobalaKonstanter.VÄGGTJOCKLEK;
+		switch (enRiktning){
+			case NORR:
+				 Punkt b0 = new Punkt(x + bredd/2,y + vägg);
+				 return b0;
+			case SÖDER:
+				Punkt b2 = new Punkt(x + bredd/2,y + höjd - vägg);
+				return b2;
+			case VÄSTER:
+				Punkt b3 = new Punkt(x + vägg,y + höjd/2);
+				return b3;
+			case ÖSTER:
+				Punkt b1 = new Punkt(x + bredd - vägg,y + höjd/2);
+				return b1;
+		}
+		return null;
 	}
 
 	private Punkt pivotpunkt(Rum ettRum, Väderstreck enRiktning) {
-		return null; /* endast här för att Eclipse inte ska klaga */
+		int vägg = GlobalaKonstanter.VÄGGTJOCKLEK;
+		int halvVägg = GlobalaKonstanter.HALV_VÄGGTJOCKLEK;
+		Punkt baspunkt = baspunkt(ettRum, enRiktning);
+		switch (enRiktning) {
+			case NORR:
+				Punkt p0 = new Punkt(baspunkt.x(), baspunkt.y() - vägg - halvVägg);
+				return p0;
+			case SÖDER:
+				Punkt p2 = new Punkt(baspunkt.x(), baspunkt.y() + vägg + halvVägg);
+				return p2;
+			case VÄSTER:
+				Punkt p3 = new Punkt(baspunkt.x() - vägg - halvVägg, baspunkt.y());
+				return p3;
+			case ÖSTER:
+				Punkt p1 = new Punkt(baspunkt.x() + vägg + halvVägg, baspunkt.y());
+				return p1;
+		}
+		return null;
 	}
 
 	private void ritaGång(Graphics g, Gång enGång) {
-
+		//s
 	}
 
 	private void ritaMarkörFörVarAnvändarenÄr(Graphics g) {
