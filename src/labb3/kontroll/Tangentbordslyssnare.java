@@ -14,28 +14,26 @@ public class Tangentbordslyssnare implements KeyListener {
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO: Skriv klar denna metod som automatiskt anropas så snart
-		// användaren tryckt på en tangent på tangentbordet. Metoden ska
-		// översätta tangenten till ett väderstreck och sen anropa hoppaÅt i
-		// enNivå med detta väderstreck. Här ska
-		//
-		// w betyda "hoppa åt NORR",
-		// d betyda "hoppa åt ÖSTER",
-		// s betyda "hoppa åt SÖDER" och
-		// a betyda "hoppa åt VÄSTER".
-		/*if (e.getKeyChar() == "w") {
-			enNivå.hoppaÅt(Väderstreck 0)
+		// Lyssnar efter knapptryck från användare
+		// w betyder "hoppa åt NORR",
+		// d betyder "hoppa åt ÖSTER",
+		// s betyder "hoppa åt SÖDER" och
+		// a betyder "hoppa åt VÄSTER".
+
+
+		if (e.getKeyChar() == 'w'){
+			enNivå.hoppaÅt(Väderstreck.NORR);
 		}
-		if (e.getKeyChar() == "a") {
-			enNivå.hoppaÅt(Väderstreck 3)
+		if (e.getKeyChar() == 'a') {
+			enNivå.hoppaÅt(Väderstreck.VÄSTER);
 		}
-		if (e.getKeyChar() == "s") {
-			enNivå.hoppaÅt(Väderstreck 2)
+		if (e.getKeyChar() == 's') {
+			enNivå.hoppaÅt(Väderstreck.SÖDER);
 		}
-		if (e.getKeyChar() == "d") {
-			enNivå.hoppaÅt(Väderstreck 1)
-		}*/
-		System.out.println("keyTyped " + e.getKeyChar());
+		if (e.getKeyChar() == 'd') {
+			enNivå.hoppaÅt(Väderstreck.ÖSTER);
+		}
+
 	}
 
 	@Override

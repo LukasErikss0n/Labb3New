@@ -4,52 +4,76 @@ import labb3.kontroll.Tangentbordslyssnare;
 
 import java.util.ArrayList;
 import java.util.Observable;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
-// TODO: Gör så att klassen Nivå ärver Observable i paketet java.util.
 public class Nivå extends Observable {
 
-	// TODO: Lägg till tillståndsvariabler för att hålla reda på nivåns rum och
-	// i vilket rum som användaren "är".
+	//tillståndsvariabler
 	public Rum aktivt;
 	public ArrayList<Rum> allaRum;
 
 	public Nivå(Rum startrum, ArrayList<Rum> rum) {
-		// TODO: Kopiera in startrum och rum in i tillståndsvariablerna.
 		aktivt = startrum;
 		allaRum = rum;
 
-		// TODO: Kontrollera att startrum finns med i rum. Om inte, kasta
-		// undantag med lämpligt felmeddelande.
+		// Kontrollera att startrum finns med i rum.
 		if(!allaRum.contains(startrum)){
 			throw new ArrayIndexOutOfBoundsException("Error ");
 		}
 
-		// TODO: Kontrollera att inga rum överlappar varandra. Om det ändå är
+		// Kontrollerar att inga rum överlappar varandra. Om det ändå är
 		// fallet, kasta undantag med lämpligt felmeddelande.
+		for (int i = 0; i < allaRum.size(); i++) {
+			int x1 = allaRum.get(i).getÖvPunkt().x();
+			int y1 = allaRum.get(i).getÖvPunkt().y();
+			int bredd1 =allaRum.get(i).getBredd();
+			int höjd1 =	allaRum.get(i).höjd;
+
+			Rectangle rum1 = new Rectangle(x1, y1, bredd1, höjd1);
+
+			for (int j = 0; j < allaRum.size() - 1 ; j++) {
+				if(j == i){
+					continue;
+				}
+				int x2 = allaRum.get(j).getÖvPunkt().x();
+				int y2 = allaRum.get(j).getÖvPunkt().y();
+				int bredd2 =allaRum.get(j).getBredd();
+				int höjd2 =	allaRum.get(j).höjd;
+
+				Rectangle rum2 = new Rectangle(x2, y2, bredd2, höjd2);
+
+				if(rum1.intersects(rum2)){
+					System.out.println("Objects overlap");
+					System.exit(401);
+				}
+			}
+		}
 	}
 
-	// TODO: Skriv en instansmetod som returnerar alla rummen. Denna behöver
-	// Målarduk för att veta vilka rum som finns på nivån och som ska ritas ut.
+	// getters
 	public ArrayList<Rum> getAllaRum(){
 		return allaRum;
 	}
 
-	// TODO Skriv en instansmetod som returnerar en referens till det rum som
-	// användaren "är i".
 	public Rum getAktivt(){
 		return aktivt;
 	}
 
-	// TODO: Skriv klar instansmetoden hoppaÅt nedan så att den ändrar det rum
-	// som användaren "är i" om det är möjligt genom att följa en gång från
+	// ändrar det rum som användaren "är i" om det är möjligt genom att följa en gång från
 	// rummet och i riktning väderstreck.
-	//
-	// Om väderstreck inte är en riktning i vilken det finns en gång, så ändras
-	// inte rummet användaren "är i" (och inte heller kastas undantag). (Denna
-	// metod använder kontrolldelen av programmet för att begära ett hopp till
-	// angränsande rum efter att användaren tryckt på en tangent.)
+
 
 	public void hoppaÅt(Väderstreck väderstreck) {
-		//kode
+		try {
+			Gång gång = aktivt.gångenÅt(väderstreck);
+			aktivt = gång.getTill();
+			setChanged();
+			notifyObservers();
+		}catch (ArrayIndexOutOfBoundsException _){
+			return;
+		}
+
 	}
 }

@@ -12,7 +12,6 @@ import labb3.verktyg.Punkt;
 
 import javax.swing.*;
 
-// TODO: Ändra nästa rad så att en Målarduk "är-en" JPanel. 
 public class Målarduk extends JPanel {
 
 	private final Nivå enNivå;
@@ -20,50 +19,42 @@ public class Målarduk extends JPanel {
 	public Målarduk(Nivå enNivå) {
 		this.enNivå = enNivå;
 
-		// TODO: Sätt bakgrundsfärgen på this till MARKFÄRG.
+		// bakgrundsfärgen på this till MARKFÄRG.
 		Color användFärg = GlobalaKonstanter.MARKFÄRG;
 		this.setBackground(användFärg);
 
-		// TODO: Anropa metoden setFocusable på this och med argumentet true.
 		// Detta behövs för att lyssnaren i programmet ska reagera.
 		this.setFocusable(true);
 	}
 
-	// TODO: Lätt till @Override på metoden nedan.
-
 	@Override
 	protected void paintComponent(Graphics g) {
-		// TODO Lägg till ett anrop till paintComponent i omedelbara
-		// överklassen (JPanel). Skicka med g som argument.
+		// anrop till paintComponent i omedelbara
+		// överklassen (JPanel).
 		super.paintComponent(g);
 
-		// TODO: Lägg till kod som ritar ut en grafisk vy av enNivå.
-		//
-		// För att underlätta finns hjälpmetoder som ska skrivas klara. Studera
-		// noga bilderna i labbinstruktionen för att få fram formlerna för
-		// bas- och pivotpunkternas koordinater. Använd ritmetoderna i klassen
-		// labb3.verktyg.Grafik. Anropa hjälpmetoderna från paintComponent.
-
-		//for loop för varje rum gör anrop till RitaRum
-		for (int i = 0; i < enNivå.getAllaRum().size(); i++) {
-			ritaRum(g, enNivå.getAllaRum().get(i));
-			ritaGångarFrånRum(g, enNivå.getAllaRum().get(i));
-			//ritaGång(g,enNivå.getAllaRum().get(i).gångar[i]);
+		//ritar ut grafiska detaljer för varje rum för instans av nivå
+		for(Rum rum: enNivå.getAllaRum()){
+			ritaRum(g, rum);
+			ritaGångarFrånRum(g, rum);
 		}
+		ritaMarkörFörVarAnvändarenÄr(g);
 
 	}
 
 	private void ritaRum(Graphics g, Rum ettRum) {
-		// anropa getters från rumklassen
+		// hittar x och y punkterna för överpunkten på rumet
 		int x = ettRum.getÖvPunkt().x();
 		int y = ettRum.getÖvPunkt().y();
 		int bredd = ettRum.getBredd();
 		int höjd = ettRum.getHöjd();
 		int vägg = GlobalaKonstanter.VÄGGTJOCKLEK;
 
+		//sätter bakrundsfärg och skapar rumet till speciferad info
 		g.setColor(ettRum.getColor());
 		g.fillRect(x, y , bredd , höjd);
 
+		//Skapar vägarna för rumet
 		g.setColor(GlobalaKonstanter.VÄGGFÄRG);
 		g.fillRect(x,y,vägg,höjd); //Väster
 		g.fillRect(x,y,bredd,vägg); //Norr
@@ -72,19 +63,17 @@ public class Målarduk extends JPanel {
 	}
 
 	private void ritaGångarFrånRum(Graphics g, Rum ettRum) {
-		for (Väderstreck utgång: Väderstreck.values()){
-			if (ettRum.finnsUtgångÅt(utgång)){
-				Punkt baspunkt = baspunkt(ettRum, utgång);
-				Punkt pivotpunkt = pivotpunkt(ettRum, utgång);
-				Grafik.drawThickLine(g,baspunkt,pivotpunkt,GlobalaKonstanter.VÄGGTJOCKLEK,
-						GlobalaKonstanter.GÅNGFÄRG);
-				Grafik.fillCircle(g, pivotpunkt, GlobalaKonstanter.HALV_VÄGGTJOCKLEK,
-						GlobalaKonstanter.GÅNGFÄRG);
+		//Loop som kallar på ritagång som rittar gångar för varje utgång för rumet
+		for (Gång gång: ettRum.getGångar()){
+			if(gång != null){
+				ritaGång(g, gång);
 			}
 		}
+
 	}
 
 	private Punkt baspunkt(Rum ettRum, Väderstreck enRiktning) {
+		//Hämtar koordinaterna för alla baspunkter
 		int x = ettRum.getÖvPunkt().x();
 		int y = ettRum.getÖvPunkt().y();
 		int bredd = ettRum.getBredd();
@@ -108,6 +97,7 @@ public class Målarduk extends JPanel {
 	}
 
 	private Punkt pivotpunkt(Rum ettRum, Väderstreck enRiktning) {
+		//använder sig av baspunkt som refernspunkt
 		int vägg = GlobalaKonstanter.VÄGGTJOCKLEK;
 		int halvVägg = GlobalaKonstanter.HALV_VÄGGTJOCKLEK;
 		Punkt baspunkt = baspunkt(ettRum, enRiktning);
@@ -129,10 +119,25 @@ public class Målarduk extends JPanel {
 	}
 
 	private void ritaGång(Graphics g, Gång enGång) {
-		//s
+		//Sparar baspunkten från utgånen och sen pivotpunkterna
+		Punkt baspunkt = baspunkt(enGång.getFrån(), enGång.getRiktningUtUrFrån());
+		Punkt pivotpunkt1 = pivotpunkt(enGång.getFrån(), enGång.getRiktningUtUrFrån());
+		Punkt pivotpunkt2 = pivotpunkt(enGång.getTill(), enGång.getRiktningInITill());
+
+		Grafik.drawThickLine(g,baspunkt,pivotpunkt1,GlobalaKonstanter.VÄGGTJOCKLEK,
+				GlobalaKonstanter.GÅNGFÄRG);
+		Grafik.fillCircle(g, pivotpunkt1, GlobalaKonstanter.HALV_VÄGGTJOCKLEK,
+				GlobalaKonstanter.GÅNGFÄRG);
+
+		Grafik.drawThickLine(g, pivotpunkt1, pivotpunkt2, GlobalaKonstanter.VÄGGTJOCKLEK, GlobalaKonstanter.GÅNGFÄRG);
 	}
 
 	private void ritaMarkörFörVarAnvändarenÄr(Graphics g) {
-
+		//Rittar ut vart användaren är
+		Rum aktivt = enNivå.getAktivt();
+		int x = aktivt.övPunkt.x() + aktivt.bredd/2;
+		int y = aktivt.övPunkt.y() + aktivt.höjd/2;
+		Punkt mittpunkt = new Punkt(x, y);
+		Grafik.fillCircle(g, mittpunkt, GlobalaKonstanter.ANVÄNDARRADIE, GlobalaKonstanter.ANVÄNDARFÄRG);
 	}
 }

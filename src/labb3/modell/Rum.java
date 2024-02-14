@@ -6,9 +6,10 @@ import labb3.verktyg.Punkt;
 import java.awt.Color;
 import java.util.ArrayList;
 
+
 public class Rum {
 
-	// TODO: Lägg till tillståndsvariabler.
+	//Tillståndsvariabler.
 	public Color golvfärg;
 	public int bredd;
 	public int höjd;
@@ -19,9 +20,7 @@ public class Rum {
 
 
 	public Rum(Color golvfärg, int bredd, int höjd, int övX, int övY) {
-		// TODO: Kopiera parametrarna in i tillståndsvariablerna. (övX,övY) är
-		// koordinaten för rummets övre vänstra hörn och lagras lämpligen som en
-		// instans av klassen Punkt i paketet verktyg.
+		// Konstruktorn skapar ett rum och sparar tillståndsvariablerna
 
 		this.golvfärg = golvfärg;
 		this.bredd = bredd;
@@ -30,8 +29,7 @@ public class Rum {
 
 	}
 
-	// TODO: Skriv "getters", metoder som returnerar tillståndsvariablernas
-	// värden.
+	// getters metoder som returnerar tillståndsvariablernas värden.
 	public Color getColor(){
 		return golvfärg;
 	}
@@ -44,27 +42,30 @@ public class Rum {
 	public Punkt getÖvPunkt(){
 		return övPunkt;
 	}
-	// TODO: Skriv instansmetoden
-	//
-	// som ska kontrollera om det från ett rum finns en utgång åt visst
-	// väderstreck.
-	//
+
 	public Boolean finnsUtgångÅt(Väderstreck väderstreck){
+		//Kontrollerar om det från ett rum finns en utgång åt visst
+		//väderstreck.
 		return gångar[väderstreck.index()] != null;
 	}
 
-
+	public Gång[] getGångar() {
+		return gångar;
+	}
 	// TODO: Skriv instansmetoden
 	//
-	//Gång gångenÅt(Väderstreck väderstreck) som
-	//
-	// returnerar den gång som leder från ett rum i riktning väderstreck. Om
-	// sådan gång saknas ska ett undantag kastas med lämpligt felmeddelande.
+	public Gång gångenÅt(Väderstreck väderstreck){
+		// Returnerar den gång som leder från ett rum i riktning väderstreck. Om
+		// sådan gång saknas kastas ett undantag
+		if(finnsUtgångÅt(väderstreck)){
+			return  gångar[väderstreck.index()];
+		}
+		throw new ArrayIndexOutOfBoundsException("Finns ingen utgång åt" + väderstreck);
 
-	// TODO: Skrivklar metoden nedan som kopplar ihop två rum med en gång.
+	}
 
 	public static void kopplaIhop(Rum från, Väderstreck riktningUtUrFrån, Rum till, Väderstreck riktningInITill) {
-
+		//Kopplar ihop två rum med en gång
 		Gång skapaGångFrån = new Gång(från, riktningUtUrFrån, till, riktningInITill);
 		från.gångar[riktningUtUrFrån.index()] = skapaGångFrån;
 
