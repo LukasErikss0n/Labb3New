@@ -1,3 +1,4 @@
+//Vidar Nilsson & Lukas Eriksson
 package labb3.modell;
 
 import labb3.GlobalaKonstanter;
@@ -10,12 +11,11 @@ import java.util.ArrayList;
 public class Rum {
 
 	//Tillståndsvariabler.
-	public Color golvfärg;
-	public int bredd;
-	public int höjd;
-	public Punkt övPunkt;
-	//public ArrayList<Gång[]> vädersträckArray = new ArrayList<>(4);
-	public Gång[] gångar = new Gång[GlobalaKonstanter.ANTAL_VÄDERSTRECK];
+	private Color golvfärg;
+	private int bredd;
+	private int höjd;
+	private Punkt övPunkt;
+	private Gång[] gångar = new Gång[GlobalaKonstanter.ANTAL_VÄDERSTRECK];
 
 
 
@@ -52,8 +52,7 @@ public class Rum {
 	public Gång[] getGångar() {
 		return gångar;
 	}
-	// TODO: Skriv instansmetoden
-	//
+
 	public Gång gångenÅt(Väderstreck väderstreck){
 		// Returnerar den gång som leder från ett rum i riktning väderstreck. Om
 		// sådan gång saknas kastas ett undantag

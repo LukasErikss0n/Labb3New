@@ -1,3 +1,4 @@
+//Vidar Nilsson & Lukas Eriksson
 package labb3;
 
 import java.awt.*;
@@ -47,10 +48,10 @@ public class GUI extends JFrame implements Observer {
 			int yKoordinat = getRoom.getÖvPunkt().y();
 
 			if (xKoordinat > maxX) {
-				maxX = xKoordinat + getRoom.bredd;
+				maxX = xKoordinat + getRoom.getBredd();
 			}
 			if (yKoordinat > maxY) {
-				maxY = yKoordinat + getRoom.höjd;
+				maxY = yKoordinat + getRoom.getHöjd();
 			}
 		}
 		canvasSizeX = maxX + 25;

@@ -1,3 +1,4 @@
+//Vidar Nilsson & Lukas Eriksson
 package labb3.modell;
 
 import labb3.kontroll.Tangentbordslyssnare;
@@ -11,8 +12,8 @@ import java.awt.geom.Rectangle2D;
 public class Nivå extends Observable {
 
 	//tillståndsvariabler
-	public Rum aktivt;
-	public ArrayList<Rum> allaRum;
+	private Rum aktivt;
+	private ArrayList<Rum> allaRum;
 
 	public Nivå(Rum startrum, ArrayList<Rum> rum) {
 		aktivt = startrum;
@@ -29,7 +30,7 @@ public class Nivå extends Observable {
 			int x1 = allaRum.get(i).getÖvPunkt().x();
 			int y1 = allaRum.get(i).getÖvPunkt().y();
 			int bredd1 =allaRum.get(i).getBredd();
-			int höjd1 =	allaRum.get(i).höjd;
+			int höjd1 =	allaRum.get(i).getHöjd();
 
 			Rectangle rum1 = new Rectangle(x1, y1, bredd1, höjd1);
 
@@ -40,7 +41,7 @@ public class Nivå extends Observable {
 				int x2 = allaRum.get(j).getÖvPunkt().x();
 				int y2 = allaRum.get(j).getÖvPunkt().y();
 				int bredd2 =allaRum.get(j).getBredd();
-				int höjd2 =	allaRum.get(j).höjd;
+				int höjd2 =	allaRum.get(j).getHöjd();
 
 				Rectangle rum2 = new Rectangle(x2, y2, bredd2, höjd2);
 

@@ -1,3 +1,4 @@
+//Vidar Nilsson & Lukas Eriksson
 package labb3.verktyg;
 
 /**

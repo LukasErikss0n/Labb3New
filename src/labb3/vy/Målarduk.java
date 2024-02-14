@@ -1,3 +1,4 @@
+//Vidar Nilsson & Lukas Eriksson
 package labb3.vy;
 
 import java.awt.*;
@@ -69,7 +70,6 @@ public class Målarduk extends JPanel {
 				ritaGång(g, gång);
 			}
 		}
-
 	}
 
 	private Punkt baspunkt(Rum ettRum, Väderstreck enRiktning) {
@@ -135,8 +135,8 @@ public class Målarduk extends JPanel {
 	private void ritaMarkörFörVarAnvändarenÄr(Graphics g) {
 		//Rittar ut vart användaren är
 		Rum aktivt = enNivå.getAktivt();
-		int x = aktivt.övPunkt.x() + aktivt.bredd/2;
-		int y = aktivt.övPunkt.y() + aktivt.höjd/2;
+		int x = aktivt.getÖvPunkt().x() + aktivt.getBredd()/2;
+		int y = aktivt.getÖvPunkt().y() + aktivt.getHöjd()/2;
 		Punkt mittpunkt = new Punkt(x, y);
 		Grafik.fillCircle(g, mittpunkt, GlobalaKonstanter.ANVÄNDARRADIE, GlobalaKonstanter.ANVÄNDARFÄRG);
 	}

@@ -1,3 +1,4 @@
+//Vidar Nilsson & Lukas Eriksson
 package labb3.modell;
 
 public class Gång {
@@ -10,8 +11,8 @@ public class Gång {
 	public Gång(Rum från, Väderstreck riktningUtUrFrån, Rum till, Väderstreck riktningInITill) {
 		// Tilldelar tillståndsvariablerna parametervärdena.
 		this.från = från;
-		this.riktningUtUrFrån = riktningUtUrFrån;
 		this.till = till;
+		this.riktningUtUrFrån = riktningUtUrFrån;
 		this.riktningInITill = riktningInITill;
 
 	}

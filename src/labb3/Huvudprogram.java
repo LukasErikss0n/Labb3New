@@ -1,3 +1,4 @@
+//Vidar Nilsson & Lukas Eriksson
 package labb3;
 
 import static labb3.modell.Väderstreck.*;
@@ -21,7 +22,8 @@ public class Huvudprogram {
 		rum.add(new Rum(Color.ORANGE, 75, 75, 450, 125));
 		rum.add(new Rum(Color.PINK, 100, 50, 275, 325));
 		rum.add(new Rum(Color.GREEN, 75, 100, 75, 275));
-		//rum.add(new Rum(Color.BLUE, 75, 75, 45, 25));
+		//rum.add(new Rum(Color.BLUE, 40, 40, 30, 30));
+
 
 		Rum.kopplaIhop(rum.get(0), SÖDER, rum.get(1), NORR);
 		Rum.kopplaIhop(rum.get(0), ÖSTER, rum.get(2), NORR);
